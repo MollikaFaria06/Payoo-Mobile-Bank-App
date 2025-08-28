@@ -168,7 +168,7 @@ document.getElementById("tranfer-money-btn").addEventListener("click",function(e
 
     
     if(accountNumber.length < 11){
-        alert("Please Provide Valid Agent Number");
+        alert("Please Provide Valid User Account Number");
         return;
     }
 
@@ -251,7 +251,7 @@ document.getElementById('pay-bill-btn').addEventListener('click',function(e){
 
 
     if(billerAccountNumber.length < 11){
-        alert("Please Provide Valid Account Number");
+        alert("Please Provide Valid Biller Account Number");
         return;
     }
 
