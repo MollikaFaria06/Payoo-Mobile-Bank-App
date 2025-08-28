@@ -1,5 +1,6 @@
 const validPin = 1234;
 const transactionData = []
+const couponPin = 4321;
 
 // functions to get input values
 function getInputValueNumber(id){
@@ -63,7 +64,7 @@ function handleButtonToggle(id){
 
 
 // Add Money Feature
-document.getElementById('add-money').addEventListener('click',function(e){
+document.getElementById('add-money-btn').addEventListener('click',function(e){
     e.preventDefault(); 
     const bank = getInputValue("bank");
 
@@ -145,6 +146,134 @@ document.getElementById("withdraw-btn").addEventListener("click",function(e){
     }
     transactionData.push(data);
 })
+
+
+// Transfer Money Feature
+
+document.getElementById("tranfer-money-btn").addEventListener("click",function(e){
+    e.preventDefault();
+
+    const accountNumber = getInputValue("tranfer-number");
+   
+    const amount = getInputValueNumber("transfer-amount");
+
+     const pin = getInputValueNumber("tranfer-pin");
+
+    const availableBalance = getInnerText("available-balance");
+
+    if(amount<=0 || amount>availableBalance){
+        alert("Invalid Amount");
+        return;
+    }
+
+    
+    if(accountNumber.length < 11){
+        alert("Please Provide Valid Agent Number");
+        return;
+    }
+
+
+    if(pin !== validPin){
+        alert("Please Provide Valid Pin Number");
+        return;
+    }
+
+    const totalNewAvailableBalance = availableBalance - amount;
+
+    setInnerText(totalNewAvailableBalance);
+
+     const data = {
+        name: "Transfer Money",
+        date: new Date().toLocaleTimeString()
+    }
+    transactionData.push(data);
+})
+
+
+
+// Get Bonus Feature
+
+document.getElementById('get-bonus-btn').addEventListener('click',function(e){
+    e.preventDefault(); 
+    
+   const bonusCoupon = getInputValueNumber("bonus-coupon");
+
+
+    if(bonusCoupon<=0){
+        alert("Invalid Coupon");
+        return;
+    }
+
+
+    const availableBalance = getInnerText("available-balance");
+
+
+    if(couponPin !== bonusCoupon){
+        alert("Please Provide Valid Bonus Coupon");
+        return;
+    }
+
+    const totalNewAvailableBalance = bonusCoupon + availableBalance;
+
+    setInnerText(totalNewAvailableBalance);
+
+    const data = {
+        name: "Get Bonus",
+        date: new Date().toLocaleTimeString()
+    }
+    transactionData.push(data);
+})
+
+
+
+// Pay Bill Feature
+document.getElementById('pay-bill-btn').addEventListener('click',function(e){
+    e.preventDefault(); 
+    const banks = getInputValue("banks");
+
+    const billerAccountNumber = getInputValue("biller-number");
+
+    const amount = getInputValueNumber("pay-amount");
+
+    if(amount<=0){
+        alert("Invalid Amount");
+        return;
+    }
+
+    const pin = getInputValueNumber("add-pin-num");
+
+    const availableBalance = getInnerText("available-balance");
+
+    if(amount<=0 || amount>availableBalance){
+        alert("Invalid Amount");
+        return;
+    }
+
+
+    if(billerAccountNumber.length < 11){
+        alert("Please Provide Valid Account Number");
+        return;
+    }
+
+
+    if(pin !== validPin){
+        alert("Please Provide Valid Pin Number");
+        return;
+    }
+
+    const totalNewAvailableBalance = availableBalance - amount;
+
+    setInnerText(totalNewAvailableBalance);
+
+    const data = {
+        name: "Pay Bill",
+        date: new Date().toLocaleTimeString()
+    }
+    transactionData.push(data);
+})
+
+
+
 
 
 // Transaction Feature
